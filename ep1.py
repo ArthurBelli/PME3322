@@ -28,8 +28,8 @@ Deseja-se saber:
 '''
 
 #método recursivo para obtenção dos coefs de perda de carga distribuída
-def Colebrook(f_initial):
-    return (-2*log10(RUG/3.7 + 2.51/((REY)*sqrt(f_initial))))**(-2)
+def Colebrook(f):
+    return (-2*log10(RUG/3.7 + 2.51/((REY)*sqrt(f))))**(-2)
     
 
 def Haaland(reynolds):
