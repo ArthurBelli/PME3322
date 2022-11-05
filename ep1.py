@@ -13,10 +13,10 @@ LC = 200 #comprimento do trecho C m
 LEQ = 50 #comprimento equivalente da válvula C LEQ = K_s*D/f
 RHO_H2O = 1e3 #massa específica H2O kg/m^3 
 NU_H2O = 1e-6 #viscosidade cinemática H2O m^2/s
-Z1 = 5 #cota de A m (8)
-Z2 = 20 #cota de B m (12)
-Z3 = 40 #cota de C m (21)
-HM = 70 #cota manométrica m 
+Z1 = (8+8+8)/3 #cota de A m 
+Z2 = Z1 + (0+0+2) + 2 #cota de B m 
+Z3 = Z2 + (4+5+0) + 2 #cota de C m 
+HM = Z3 + (6+3+3) + 10 #cota manométrica m 
 G = 10 #aceleração gravitacional m/s^2
 REY = D/NU_H2O
 
@@ -52,7 +52,6 @@ def solve_Hj(Hj_ini):
 
     Hj = Z1 + HM - fa*(LA*(Va**2))/(D*2*G) #eq (7)
     HJ = (Hj + Hj_ini)/2
-    #print("\n")
 
     if abs(HJ-Hj_ini) < 0.0001: #critério de convergência adotado
         return Hj, Qa, Qb, Qc, fa, fb, fc
@@ -60,7 +59,14 @@ def solve_Hj(Hj_ini):
         return solve_Hj(HJ)
 
 def main():
-    Hj,_,_,_,_,_,_ = solve_Hj(43)
-    print(Hj)
+    initial_hj = float(input("Chute inicial de Hj: "))
+    Hj, Qa, Qb, Qc, fa, fb, fc = solve_Hj(initial_hj)
+    print(f"Hj = {Hj}")
+    print(f"fa = {fa}")
+    print(f"fb = {fb}")
+    print(f"fc = {fc}")
+    print(f"Qa = {Qa}")
+    print(f"Qb = {Qb}")
+    print(f"Qc = {Qc}")
 
 main()
